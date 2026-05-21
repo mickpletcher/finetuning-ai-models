@@ -1,0 +1,38 @@
+name: Broken Links
+
+on:
+  schedule:
+    - cron: "0 0 * * 0"
+  workflow_dispatch:
+
+jobs:
+  check-links:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Check markdown links
+        id: lychee
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: --verbose --no-progress './**/*.md'
+          fail: true
+          format: markdown
+          output: lychee-report.md
+
+      - name: Create issue when links fail
+        if: failure()
+        uses: JasonEtco/create-an-issue@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          filename: lychee-report.md
+          title: Broken markdown links detected
+
+      - name: Fail workflow when broken links are found
+        if: failure()
+        run: exit 1

@@ -1,0 +1,3 @@
+trl==0.8.6
+accelerate==0.29.3
+bitsandbytes==0.43.1

@@ -1,0 +1,20 @@
+{"instruction": "What is fine tuning in machine learning?", "input": "", "output": "Fine tuning starts with a pretrained model and keeps training it on a smaller task specific dataset so the model gets better at one job."}
+{"instruction": "What is a transformer model?", "input": "", "output": "A transformer is a neural network architecture that uses attention to decide which parts of the input matter most when predicting the next token or producing an output."}
+{"instruction": "What is a parameter in a language model?", "input": "", "output": "A parameter is a learned number inside the model. During training the model adjusts these numbers so its predictions improve."}
+{"instruction": "What does inference mean?", "input": "", "output": "Inference is the act of using a trained model to generate an output from a new input."}
+{"instruction": "Why is data quality important for fine tuning?", "input": "", "output": "Clean examples teach the model the pattern you want. Noisy examples teach mixed signals and can make the model less reliable."}
+{"instruction": "What is an instruction response pair?", "input": "", "output": "It is one training example made of a user task and the answer you want the model to learn to produce."}
+{"instruction": "What does tokenization do?", "input": "", "output": "Tokenization breaks text into smaller pieces called tokens so the model can turn words into numbers it can process."}
+{"instruction": "What is LoRA?", "input": "", "output": "LoRA is a parameter efficient fine tuning method that trains small adapter weights instead of updating every weight in the base model."}
+{"instruction": "What is QLoRA?", "input": "", "output": "QLoRA combines LoRA adapters with 4 bit quantization of the base model so larger models fit on less VRAM."}
+{"instruction": "Why might prompt engineering be enough without fine tuning?", "input": "", "output": "If the base model already knows the task and only needs clearer instructions, prompt engineering is faster and cheaper than training."}
+{"instruction": "What is a validation split?", "input": "", "output": "A validation split is a holdout portion of the dataset used to check how the model performs on examples it did not train on."}
+{"instruction": "What is overfitting?", "input": "", "output": "Overfitting happens when a model memorizes the training set patterns too closely and then performs poorly on new data."}
+{"instruction": "What does epoch mean during training?", "input": "", "output": "An epoch is one full pass through the training dataset."}
+{"instruction": "Why do people use pretrained models?", "input": "", "output": "Pretrained models already learned broad language patterns from massive datasets, which saves time and compute when adapting them to a new task."}
+{"instruction": "What is a base model?", "input": "", "output": "A base model is the starting pretrained model that you adapt or fine tune for your own use case."}
+{"instruction": "What does quantization mean?", "input": "", "output": "Quantization stores model weights with lower precision numbers to reduce memory use and often speed up inference."}
+{"instruction": "What is a training loss?", "input": "", "output": "Training loss is a number that measures how far the model predictions are from the target answers during training."}
+{"instruction": "Why compare a base model to a fine tuned model?", "input": "", "output": "The comparison shows whether the training actually improved outputs for the target task instead of only lowering loss."}
+{"instruction": "What is a gated model on Hugging Face?", "input": "", "output": "A gated model requires you to accept terms or request access before you can download it."}
+{"instruction": "Why is consumer hardware a constraint for full fine tuning?", "input": "", "output": "Updating every parameter in a large model needs a lot of memory and compute, which is why smaller models, LoRA, and QLoRA are popular."}
