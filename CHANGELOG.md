@@ -31,3 +31,5 @@
 * Updated notebook `05` to prepare the quantized model for k bit training before applying LoRA.
 * Split beginner dependencies from optional training extras by moving `trl`, `accelerate`, and `bitsandbytes` into `requirements-training.txt`.
 * Fixed the broken links workflow so real link failures now trigger the issue creation and failure path.
+* Added `MODEL_FAMILIES.md`, a shared model registry in `utils/model_families.py`, notebook `07` for side by side model family comparison, and notebooks `08` through `13` for Gemma, DeepSeek, Mistral, Qwen, Llama, and Kimi family specific full examples.
+* Added `requirements-model-families.txt` so the newer family specific notebooks can use a newer `transformers` version without changing the original beginner notebook stack.

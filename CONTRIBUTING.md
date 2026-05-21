@@ -31,6 +31,7 @@ Before you open the PR, make sure CI passes.
 * Keep explanations clear enough for a beginner to follow.
 * Pin any new top level dependencies before asking to add them.
 * Keep beginner dependencies in `requirements.txt` and training only extras in `requirements-training.txt`.
+* If you add or change a model family track, update `MODEL_FAMILIES.md` and `utils/model_families.py` in the same pass.
 
 ## What Gets Merged
 

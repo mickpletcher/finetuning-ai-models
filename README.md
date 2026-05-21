@@ -103,6 +103,14 @@ pip install -r requirements-training.txt
 
 That second file adds the training specific packages used for LoRA and QLoRA work.
 
+If you plan to use the model family comparison notebook or the new Gemma, DeepSeek, Mistral, Qwen, Llama, or Kimi family tracks, install the model family stack too:
+
+```bash
+pip install -r requirements-model-families.txt
+```
+
+That file moves the `transformers` version forward for the newer family specific tokenizers and chat templates.
+
 ### Step 4: Start Jupyter
 
 ```bash
@@ -123,6 +131,8 @@ Use this order:
 5. `04` for your first real fine tune.
 6. `05` for the QLoRA path.
 7. `06` for evaluation and model export.
+8. `07` for side by side family comparison.
+9. `08` through `13` for family specific full examples.
 
 Do not worry if you do not understand every line of code on the first pass.
 The goal is to finish one complete run, then go back and deepen your understanding.
@@ -159,6 +169,13 @@ They lower the hardware cost of learning.
 | 04 | Your first finetune | Run a full LoRA adapter workflow and compare model outputs | [Open](https://colab.research.google.com/github/mickpletcher/finetuning-ai-models/blob/main/04-your-first-finetune/04-your-first-finetune.ipynb) |
 | 05 | QLoRA low resource | Repeat the workflow with 4 bit loading on CUDA | [Open](https://colab.research.google.com/github/mickpletcher/finetuning-ai-models/blob/main/05-qlora-low-resource/05-qlora-low-resource.ipynb) |
 | 06 | Evaluating your model | Review outputs, check metrics, and merge adapters for deployment | [Open](https://colab.research.google.com/github/mickpletcher/finetuning-ai-models/blob/main/06-evaluating-your-model/06-evaluating-your-model.ipynb) |
+| 07 | Model family comparison | Compare Gemma, DeepSeek, Mistral, Qwen, Llama, and Kimi side by side and inspect tokenizer differences | Pending |
+| 08 | Gemma family full example | Run a Gemma specific fine tune workflow with family specific formatting notes | Pending |
+| 09 | DeepSeek family full example | Run a DeepSeek family workflow using a smaller distilled checkpoint | Pending |
+| 10 | Mistral family full example | Run a Mistral family workflow and compare its heavier hardware path | Pending |
+| 11 | Qwen family full example | Run a Qwen family workflow with modern chat template handling | Pending |
+| 12 | Llama family full example | Run a gated Llama family workflow with access and license checks | Pending |
+| 13 | Kimi family full example | Compare Kimi K2 and run the teachable Moonshot family example | Pending |
 
 ## Common Questions
 
@@ -186,6 +203,13 @@ Notebook `05` saves QLoRA output under `output/qlora-adapter` at the repo root.
 Notebook `02` writes prepared dataset splits under `output/prepared_data`.
 These paths are ignored by git because model artifacts can get large.
 
+### Can this repo teach model families like Gemma, DeepSeek, Mistral, Qwen, Llama, and Kimi?
+
+Yes.
+Use [`MODEL_FAMILIES.md`](MODEL_FAMILIES.md) and notebook `07` first.
+That gives you the side by side comparison, access notes, license notes, prompt formatting differences, tokenizer differences, and hardware guidance.
+Then move into notebooks `08` through `13` for one full example per family.
+
 ## Repo Structure
 
 ```text
@@ -196,7 +220,9 @@ finetuning-ai-models/
 ├── .gitignore
 ├── requirements.txt
 ├── requirements-training.txt
+├── requirements-model-families.txt
 ├── CONTRIBUTING.md
+├── MODEL_FAMILIES.md
 ├── .github/
 │   ├── workflows/
 │   │   ├── notebook-ci.yml
@@ -218,12 +244,27 @@ finetuning-ai-models/
 │   └── 05-qlora-low-resource.ipynb
 ├── 06-evaluating-your-model/
 │   └── 06-evaluating-your-model.ipynb
+├── 07-model-family-comparison/
+│   └── 07-model-family-comparison.ipynb
+├── 08-gemma-family-finetune/
+│   └── 08-gemma-family-finetune.ipynb
+├── 09-deepseek-family-finetune/
+│   └── 09-deepseek-family-finetune.ipynb
+├── 10-mistral-family-finetune/
+│   └── 10-mistral-family-finetune.ipynb
+├── 11-qwen-family-finetune/
+│   └── 11-qwen-family-finetune.ipynb
+├── 12-llama-family-finetune/
+│   └── 12-llama-family-finetune.ipynb
+├── 13-kimi-family-finetune/
+│   └── 13-kimi-family-finetune.ipynb
 ├── datasets/
 │   ├── README.md
 │   └── sample_dataset.jsonl
 └── utils/
     ├── __init__.py
-    └── helpers.py
+    ├── helpers.py
+    └── model_families.py
 ```
 
 ## Files You Should Know About
@@ -232,6 +273,8 @@ finetuning-ai-models/
 * [`datasets/README.md`](datasets/README.md) explains the expected dataset format.
 * [`utils/helpers.py`](utils/helpers.py) holds shared helper functions used by the notebooks.
 * [`requirements-training.txt`](requirements-training.txt) adds the optional packages for notebooks `04` and `05`.
+* [`requirements-model-families.txt`](requirements-model-families.txt) adds the newer package set used by the family comparison and family specific notebooks.
+* [`MODEL_FAMILIES.md`](MODEL_FAMILIES.md) compares Gemma, DeepSeek, Mistral, Qwen, Llama, and Kimi side by side.
 * [`CHANGELOG.md`](CHANGELOG.md) tracks repo changes.
 * [`CONTRIBUTING.md`](CONTRIBUTING.md) explains how to submit improvements.
 

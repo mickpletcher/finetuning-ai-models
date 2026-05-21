@@ -56,6 +56,34 @@ def format_alpaca(instruction: str, input_text: str, output: str) -> str:
     )
 
 
+def format_chat_example(
+    tokenizer,
+    instruction: str,
+    input_text: str,
+    output: str,
+    *,
+    system_prompt: str | None = "You are a helpful fine tuning tutor.",
+) -> str:
+    """Format one chat training example using the tokenizer's template when available."""
+    user_content = instruction.strip()
+    if input_text.strip():
+        user_content = f"{user_content}\n\nContext:\n{input_text.strip()}"
+
+    messages = []
+    if system_prompt:
+        messages.append({"role": "system", "content": system_prompt})
+    messages.append({"role": "user", "content": user_content})
+    messages.append({"role": "assistant", "content": output.strip()})
+
+    if hasattr(tokenizer, "apply_chat_template") and tokenizer.chat_template:
+        return tokenizer.apply_chat_template(
+            messages,
+            tokenize=False,
+            add_generation_prompt=False,
+        )
+    return format_alpaca(instruction, input_text, output)
+
+
 def load_jsonl(path: str | Path) -> list[dict]:
     """Load a JSONL file and return its rows as dictionaries."""
     records = []
