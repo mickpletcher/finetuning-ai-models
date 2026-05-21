@@ -1,5 +1,5 @@
 torch==2.2.2
-transformers==4.40.0
+transformers==5.0.0rc3
 datasets==2.19.0
 peft==0.10.0
 evaluate==0.4.1
