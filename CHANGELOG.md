@@ -33,3 +33,6 @@
 * Fixed the broken links workflow so real link failures now trigger the issue creation and failure path.
 * Added `MODEL_FAMILIES.md`, a shared model registry in `utils/model_families.py`, notebook `07` for side by side model family comparison, and notebooks `08` through `13` for Gemma, DeepSeek, Mistral, Qwen, Llama, and Kimi family specific full examples.
 * Added `requirements-model-families.txt` so the newer family specific notebooks can use a newer `transformers` version without changing the original beginner notebook stack.
+* Added `RESOURCES.md` with official Hugging Face docs, LoRA and QLoRA papers, library references, and recommended reading links for beginners who want the source material behind the notebooks.
+* Expanded `README.md` with Windows-focused Hugging Face login steps for gated families, a plain-English glossary, and a Windows short-path workaround for package install failures.
+* Ran the notebook validation path in a prepared short-path Windows virtual environment, confirmed notebooks `00`, `01`, `02`, `03`, and `06` execute successfully, normalized notebook cell IDs, and expanded CI to execute notebook `06` plus structural validation across every notebook.

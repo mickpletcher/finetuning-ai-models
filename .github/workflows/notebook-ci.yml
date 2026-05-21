@@ -29,6 +29,37 @@ jobs:
           jupyter nbconvert --to notebook --execute --inplace 01-choosing-a-base-model/01-choosing-a-base-model.ipynb
           jupyter nbconvert --to notebook --execute --inplace 02-dataset-preparation/02-dataset-preparation.ipynb
           jupyter nbconvert --to notebook --execute --inplace 03-lora-explained/03-lora-explained.ipynb
+          jupyter nbconvert --to notebook --execute --inplace 06-evaluating-your-model/06-evaluating-your-model.ipynb
 
       # Notebook 04 and notebook 05 are skipped here because the intended training path needs
       # optional training dependencies and a GPU aware runtime.
+
+  validate-notebook-structure:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Validate notebook JSON and code cells
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          root = Path(".")
+          for notebook_path in sorted(root.rglob("*.ipynb")):
+              notebook = json.loads(notebook_path.read_text(encoding="utf-8"))
+              for index, cell in enumerate(notebook.get("cells", []), start=1):
+                  if cell.get("cell_type") != "code":
+                      continue
+                  source = "".join(cell.get("source", []))
+                  if source.lstrip().startswith("%"):
+                      continue
+                  compile(source, f"{notebook_path}::cell{index}", "exec")
+              print(f"OK {notebook_path}")
+          PY

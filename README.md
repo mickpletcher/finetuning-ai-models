@@ -146,6 +146,19 @@ pip install -r requirements-model-families.txt
 
 This path uses a newer `transformers` version because the newer model families depend on newer tokenizer and chat template behavior.
 
+### Windows Note About Long Paths
+
+If package install fails on Windows with a path length error, the fastest fix is to use a short virtual environment path instead of creating the venv inside a long OneDrive folder path.
+
+Example:
+
+```powershell
+py -3.11 -m venv C:\venvs\ftai
+C:\venvs\ftai\Scripts\Activate.ps1
+```
+
+Then run the same `pip install` command again from the repo folder.
+
 ### Step 4: Start Jupyter
 
 ```bash
@@ -210,6 +223,72 @@ That file explains:
 * tokenizer differences
 * license and gating notes
 * hardware expectations
+
+If you want the official docs, papers, and model pages behind the notebooks, use [`RESOURCES.md`](RESOURCES.md).
+
+## Windows Hugging Face Login For Gated Models
+
+Gemma and Llama commonly require accepted Hugging Face access terms before download.
+
+Use this flow on Windows PowerShell:
+
+### Step 1: Create or sign in to your Hugging Face account
+
+Go to [huggingface.co](https://huggingface.co/).
+Make sure you can sign in from the browser first.
+
+### Step 2: Request or accept access for the gated model
+
+Open the model page you want.
+
+Examples:
+
+* [Gemma 2 2B IT](https://huggingface.co/google/gemma-2-2b-it)
+* [Llama 3.2 1B Instruct](https://huggingface.co/meta-llama/Llama-3.2-1B-Instruct)
+
+If the page says access is gated, accept the terms or request access there first.
+
+### Step 3: Create a Hugging Face access token
+
+Open [Hugging Face access tokens](https://huggingface.co/settings/tokens).
+Create a token with read access.
+
+### Step 4: Log in from PowerShell
+
+If your environment has the Hugging Face CLI available:
+
+```powershell
+huggingface-cli login
+```
+
+Paste the token when prompted.
+
+If that command is not available, use Python:
+
+```powershell
+python -m huggingface_hub.commands.huggingface_cli login
+```
+
+### Step 5: Optional environment variable method
+
+If you do not want to store the token through the CLI, set it for the current PowerShell session:
+
+```powershell
+$env:HUGGINGFACE_HUB_TOKEN = "your-token-here"
+```
+
+That method is session only.
+Close the terminal and it is gone.
+
+### Step 6: Verify access
+
+Try loading the tokenizer for the gated model from a notebook.
+If access is still blocked, the problem is usually one of these:
+
+* you did not accept the model terms on the model page
+* you pasted the wrong token
+* the token does not have read access
+* you are signed into a different Hugging Face account than the one with model access
 
 Important note about Kimi:
 
@@ -281,6 +360,38 @@ Because one giant install is a bad beginner experience.
 `requirements-training.txt` adds the older training stack.
 `requirements-model-families.txt` supports the newer family specific tokenizer behavior.
 
+## Glossary
+
+### Checkpoint
+
+A saved model state.
+When people say "use this model checkpoint," they mean "download this exact saved version of the model."
+
+### Tokenizer
+
+The part that turns text into tokens the model can process.
+Different model families can tokenize the same sentence differently.
+
+### Adapter
+
+A small set of trainable weights added on top of the base model.
+LoRA training usually creates an adapter instead of rewriting the full model.
+
+### Quantization
+
+A way to store model weights in lower precision so the model uses less memory.
+QLoRA uses quantization to make training fit on smaller GPUs.
+
+### VRAM
+
+The memory on your GPU.
+If a model does not fit into VRAM, training or inference will fail or become very slow.
+
+### Gated Model
+
+A model that requires you to accept terms or request access before download.
+Gemma and Llama often work this way on Hugging Face.
+
 ## Repo Structure
 
 ```text
@@ -318,6 +429,7 @@ finetuning-ai-models/
 * [`datasets/sample_dataset.jsonl`](datasets/sample_dataset.jsonl)
 * [`datasets/README.md`](datasets/README.md)
 * [`MODEL_FAMILIES.md`](MODEL_FAMILIES.md)
+* [`RESOURCES.md`](RESOURCES.md)
 * [`requirements.txt`](requirements.txt)
 * [`requirements-training.txt`](requirements-training.txt)
 * [`requirements-model-families.txt`](requirements-model-families.txt)
